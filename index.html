@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Meme Genertor</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body onload="onInit()">
+    <header class="page-header">
+        <img class="logo" onclick="closeEditorModal()" src="images/LOGO.png">
+    </header>
+    <div class="search-bar">
+
+        <button class="shuffle-btn fa" onclick="openShuffledMeme()">Shuffle</button>
+        <input oninput="filterGallery(this)" list="memes" placeholder="Filter by tags">
+        <label class="image-input-container" for="upload-input">
+            <div class="fa fa-camera"></div>
+            Select Image
+            <span class="image-name"></span>
+            <input onchange="useUploadedImage(event)" id="upload-input" type="file"
+                accept="image/png, image/jpg, image/gif, image/jpeg">
+        </label>
+
+        <datalist id="memes">
+            <option value="president">
+            <option value="mean">
+            <option value="trump">
+            <option value="dog">
+            <option value="cute">
+            <option value="baby">
+            <option value="cat">
+            <option value="sleepy">
+            <option value="success">
+            <option value="explain">
+            <option value="history">
+            <option value="surprise">
+            <option value="wonder">
+            <option value="clown">
+            <option value="laugh">
+            <option value="obama">
+            <option value="kissing">
+            <option value="pointing">
+            <option value="interesting">
+            <option value="cheering">
+            <option value="leonardo di caprio">
+            <option value="laugh">
+            <option value="serious">
+            <option value="matrix">
+            <option value="sunglasses">
+            <option value="one does not">
+            <option value="lord of the rings">
+            <option value="star trek">
+            <option value="putin">
+            <option value="president">
+            <option value="buzz">
+            <option value="toy story">
+        </datalist>
+    </div>
+    <section class="meme-editor main-layout" hidden>
+        <div class="canvas-container">
+            <canvas height="500px" width="500px"></canvas>
+        </div>
+        <aside class="control-box">
+            <input oninput="changeText(this)" name="meme-text-input" type="text">
+            <button class="fa btn next-line-btn" onclick="onMoveLineByButtons()"></button>
+            <button class="fa btn new-line-btn" onclick="onAddLine()"></button>
+            <button class="fa btn delete-line-btn" onclick="onDeleteLine()"></button>
+            <button class="fa btn increase-font-btn" onclick="increaseFontSize()"></button>
+            <button class="fa btn decrease-font-btn" onclick="decreaseFontSize()"></button>
+            <button class="fa btn align-left-btn" onclick="onChangeTextAlign('left')"></button>
+            <button class="fa btn align-center-btn" onclick="onChangeTextAlign('center')"></button>
+            <button class="fa btn align-right-btn" onclick="onChangeTextAlign('right')"></button>
+            <button class="fa btn color-change"><input type="color" name="text-color" oninput="onColorChange(this)"></button>
+            <button class="fa btn move-line-up-btn" onclick="onChangeLineHeight(-10)"></button>
+            <button class="fa btn move-line-down-btn" onclick="onChangeLineHeight(10)"></button>
+            <a href="#" onclick="downloadCanvas(this)" class="download-container" download="my-new-meme">
+                <button class="fa btn download-btn"></button>
+            </a>
+            <button class="fa btn close-win-btn" onclick="closeEditorModal()">X</button>
+            <button class="fa btn save-meme-btn" onclick="onSaveCurrMeme()">SAVE</button>
+            <button class="fa share-meme-btn">Share</button>
+        </aside>
+    </section>
+    <main class="meme-gallery main-layout">
+        <img src="images/10.jpg" class="img1">
+
+    </main>
+    <footer>
+        <img class="logo" src="images/LOGO.png">
+        All rights Reserved
+    </footer>
+    <script src="js/storage.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/meme.service.js"></script>
+    <script src="js/gallery.service.js"></script>
+    <script src="js/meme.controller.js"></script>
+    <script src="js/gallery.controller.js"></script>
+</body>
+
+</html>

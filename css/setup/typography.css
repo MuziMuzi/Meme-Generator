@@ -1,0 +1,9 @@
+@font-face {
+    font-family: Montserrat;
+    src: url(../../fonts/montserrat/Montserrat-Medium.ttf);
+}
+
+@font-face {
+    font-family: fa;
+    src: url(../../fonts/fontAwesome/fa-solid-900.ttf);
+}

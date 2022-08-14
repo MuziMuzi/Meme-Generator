@@ -1,0 +1,12 @@
+.page-header {
+    width: 100%;
+    background-color: var(--clr1);
+    height: 66px;
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 240px;
+    margin-inline-start: 20px;
+}

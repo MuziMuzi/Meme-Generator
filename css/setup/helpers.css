@@ -1,0 +1,56 @@
+.fa {
+    font-family: fa;
+}
+
+.main-layout {
+    max-width: 560px;
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+
+
+}
+
+
+.increase-font-btn::before {
+    content: 'A\2b'
+}
+
+.decrease-font-btn::before {
+    content: 'A\f068'
+}
+
+.next-line-btn::before {
+    content: '\e4af'
+}
+
+.align-left-btn::before {
+    content: '\f036'
+}
+
+.align-center-btn::before {
+    content: '\f037'
+}
+
+.align-right-btn::before {
+    content: '\f038'
+}
+
+.move-line-up-btn::before {
+    content: '\f885'
+}
+
+.move-line-down-btn::before {
+    content: '\f884'
+}
+
+.new-line-btn::before {
+    content: '\2b'
+}
+
+.delete-line-btn::before {
+    content: '\f2ed'
+}
+
+.download-btn::before {
+    content: '\f019'
+}
