@@ -71,7 +71,7 @@ function moveLine(dy) {
 
 function doUploadImg(imgDataUrl, onSuccess) {
 
-    const formData = new FormData();
+    const formData = new FormData()
     formData.append('img', imgDataUrl)
 
     fetch('//ca-upload.com/here/upload.php', {
@@ -80,7 +80,7 @@ function doUploadImg(imgDataUrl, onSuccess) {
         })
         .then(res => res.text())
         .then((url) => {
-            console.log('Got back live url:', url);
+            console.log('Got back live url:', url)
             onSuccess(url)
         })
         .catch((err) => {

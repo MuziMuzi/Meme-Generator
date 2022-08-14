@@ -2,15 +2,16 @@
 
 
 let gLoadedImgEvent
+let gLoadedImg
 
 function onInit() {
     initCanvas()
     renderGallery()
     resizeCanvas()
-    // window.addEventListener('resize', () => {
-    //     resizeCanvas()
-    //     renderMeme()
-    // })
+    window.addEventListener('resize', () => {
+        resizeCanvas()
+        renderMeme()
+    })
 
 }
 
@@ -24,20 +25,33 @@ function useUploadedImage(ev) {
     const elInputImage = document.querySelector("#upload-input").files[0]
     const elImageName = document.querySelector('.image-name')
     elImageName.innerText = elInputImage.name
-
-
     setImg('custom')
-    resizeCanvas()
-    renderMeme()
-    // renderMeme()
-    // setTimeout(renderMeme,500)
+    uploadImage(ev)
 
+    // setImg('custom')
+    // resizeCanvas()
+    // renderMeme()
+    // renderMeme()
 }
 
+function uploadImage(ev) {
 
+    const reader = new FileReader()
+
+    reader.onload = (event) => {
+        gLoadedImg = new Image()
+        gLoadedImg.src = event.target.result
+        gLoadedImg.onload = renderMeme.bind(null, gLoadedImg)
+        
+    }
+    reader.readAsDataURL(ev.target.files[0])
+}
 
 function getLoadedImgEvent() {
     return gLoadedImgEvent
+}
+function getLoadedImg() {
+    return gLoadedImg
 }
 
 function renderGallery() {

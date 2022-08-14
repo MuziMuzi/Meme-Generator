@@ -15,30 +15,31 @@ function initCanvas() {
 
 function resizeCanvas() {
     var elContainer = document.querySelector('.canvas-container')
-     gElCanvas.width = elContainer.offsetWidth
+    gElCanvas.width = elContainer.offsetWidth
     gElCanvas.height = elContainer.offsetWidth
 
 }
 
 function renderMeme() {
-    resizeCanvas()
     const chosenMeme = getMeme()
-
+    let image
     if (chosenMeme.selectedImgId === 'custom') {
-        renderInputMeme(getLoadedImgEvent(), chosenMeme)
-        return
+        image = getLoadedImg()
+    } else {
+
+        image = document.querySelector(`.img${chosenMeme.selectedImgId}`)
     }
-    const image = document.querySelector(`.img${chosenMeme.selectedImgId}`)
-    
+
+
     adjustCanvasToImage(image)
     gCtx.drawImage(image, 0, 0, gElCanvas.width, gElCanvas.height)
-
+    setDefaultParams()
     if (!chosenMeme.lines[0].pos && !chosenMeme.lines[1].pos) {
         chosenMeme.lines[0].pos = { y: 70 }
         chosenMeme.lines[1].pos = { y: gElCanvas.height - 40 }
     }
 
-    setDefaultParams()
+
     chosenMeme.lines.forEach((line) => {
         printLine(line, line.pos)
     })
@@ -46,33 +47,34 @@ function renderMeme() {
     markCurrLine()
 }
 
-function renderInputMeme(ev, meme) {
+// function renderInputMeme(ev, meme) {
 
-    const reader = new FileReader()
+//     const reader = new FileReader()
 
-    reader.onload = (event) => {
-        var img = new Image()
-        img.src = event.target.result
-        adjustCanvasToImage(img)
-        if (!meme.lines[0].pos && !meme.lines[1].pos || meme.lines[1].pos.y < 0) {
-            meme.lines[0].pos = { y: 70 }
-            meme.lines[1].pos = { y: gElCanvas.height - 40 }
-        }
-        gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
-        setDefaultParams()
-        meme.lines.forEach((line) => {
-            printLine(line, line.pos)
-        })
-        renderTextInput()
-        markCurrLine()
-    }
-    reader.readAsDataURL(ev.target.files[0])
-}
+//     reader.onload = (event) => {
+//         var img = new Image()
+//         img.src = event.target.result
+//         img.onload = onImageReady.bind(null, img)
+//         adjustCanvasToImage(img)
+//         if (!meme.lines[0].pos && !meme.lines[1].pos || meme.lines[1].pos.y < 0) {
+//             meme.lines[0].pos = { y: 70 }
+//             meme.lines[1].pos = { y: gElCanvas.height - 40 }
+//         }
+//         gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
+//         setDefaultParams()
+//         meme.lines.forEach((line) => {
+//             printLine(line, line.pos)
+//         })
+//         renderTextInput()
+//         markCurrLine()
+//     }
+//     reader.readAsDataURL(ev.target.files[0])
+// }
 
-function adjustCanvasToImage(img){
-    if (img.naturalHeight > img.naturalWidth){
+function adjustCanvasToImage(img) {
+    if (img.naturalHeight > img.naturalWidth) {
         gElCanvas.width = (img.naturalWidth * gElCanvas.height) / img.naturalHeight
-    }else{
+    } else {
         gElCanvas.height = (img.naturalHeight * gElCanvas.width) / img.naturalWidth
     }
 }
@@ -107,6 +109,7 @@ function getEvPos(ev) {
     var pos = ev.offsetY
     const gTouchEvs = ['touchstart', 'touchmove', 'touchend']
     if (gTouchEvs.includes(ev.type)) {
+        console.log(ev)
         ev.preventDefault()
         ev = ev.changedTouches[0]
         pos = ev.clientY - 117 // must get fixed in CR
@@ -139,16 +142,20 @@ function onSaveCurrMeme() {
 
 function prepareMemeForDownload() {
     const chosenMeme = getMeme()
-    const image = document.querySelector(`.img${chosenMeme.selectedImgId}`)
+    let image
+    if (chosenMeme.selectedImgId === 'custom') {
+        image = getLoadedImg()
+    } else {
+        image = document.querySelector(`.img${chosenMeme.selectedImgId}`)
+    }
     adjustCanvasToImage(image)
-    gCtx.drawImage(image, 0, 0, gElCanvas.width, gElCanvas.height, 0, 0, gElCanvas.width, gElCanvas.height);
+    gCtx.drawImage(image, 0, 0, gElCanvas.width, gElCanvas.height, 0, 0, gElCanvas.width, gElCanvas.height)
     chosenMeme.lines.forEach((line) => { printLine(line, line.pos) })
 }
 
 function prepareImageForSharing() {
     const imgDataUrl = gElCanvas.toDataURL("image/jpeg")
 
-    // A function to be called if request succeeds
     function onSuccess(uploadedImgUrl) {
 
         const encodedUploadedImgUrl = encodeURIComponent(uploadedImgUrl)
@@ -158,7 +165,7 @@ function prepareImageForSharing() {
            Share   
         </a>`
     }
-    doUploadImg(imgDataUrl, onSuccess);
+    doUploadImg(imgDataUrl, onSuccess)
 }
 
 

@@ -10,6 +10,9 @@
 
 }
 
+.color-change::before{
+    content:"\f53f";
+}
 
 .increase-font-btn::before {
     content: 'A\2b'
