@@ -27,11 +27,6 @@ function useUploadedImage(ev) {
     elImageName.innerText = elInputImage.name
     setImg('custom')
     uploadImage(ev)
-
-    // setImg('custom')
-    // resizeCanvas()
-    // renderMeme()
-    // renderMeme()
 }
 
 function uploadImage(ev) {

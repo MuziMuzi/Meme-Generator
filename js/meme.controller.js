@@ -137,7 +137,6 @@ function addTouchListeners() {
 function onSaveCurrMeme() {
     prepareMemeForDownload()
     saveCurrMeme(gElCanvas.toDataURL("image/jpeg"))
-    prepareImageForSharing()
 }
 
 function prepareMemeForDownload() {
@@ -151,6 +150,11 @@ function prepareMemeForDownload() {
     adjustCanvasToImage(image)
     gCtx.drawImage(image, 0, 0, gElCanvas.width, gElCanvas.height, 0, 0, gElCanvas.width, gElCanvas.height)
     chosenMeme.lines.forEach((line) => { printLine(line, line.pos) })
+}
+
+function onShareClick() {
+    prepareMemeForDownload()
+    prepareImageForSharing()
 }
 
 function prepareImageForSharing() {
